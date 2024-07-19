@@ -30,9 +30,9 @@ class IndexView(View):
 
     @staticmethod
     def _get_client_ip_from_request(request: HttpRequest) -> str:
-        x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
-        if x_forwarded_for:
-            return x_forwarded_for.split(",")[0]
+        x_real_ip = request.META.get("X-Real-IP")
+        if x_real_ip:
+            return x_real_ip.split(",")[0]
         return request.META.get("REMOTE_ADDR")
 
     def _fetch_weather(self, request: HttpRequest, location: str):
