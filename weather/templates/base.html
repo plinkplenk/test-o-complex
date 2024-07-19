@@ -1,0 +1,98 @@
+{% load compress %}
+{% load static %}
+
+{% block base %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}
+                {% if title %}
+                    {{ title }}
+                {% else %}
+                    Weather
+                {% endif %}
+            {% endblock %}
+        </title>
+        <link rel="stylesheet" href="{% static "src/css/output.css" %}">
+        <link rel="stylesheet" href="{% static "src/css/autoComplete.min.css" %}">
+    </head>
+    <body class="min-h-screen w-100% bg-[#d1d1d1],">
+    {% include "header.html"%}
+    {% block content %}
+    {% endblock %}
+
+    <script src="{% static "src/js/autoComplete.min.js" %}"></script>
+
+    <script>
+        const origin = window.origin
+        const autoCompleteJS = new autoComplete({
+            placeHolder: "Locations...",
+            submit: true,
+            data: {
+                src: (query) => {
+                    if (query.length <= 2) {
+                        return
+                    }
+                    return fetch(`${origin}/search/?q=${query}`)
+                        .then((response) => response.json())
+                        .then((response) => {
+                            if (response && response.locations && Array.isArray(response.locations)) {
+                                return response.locations;
+                            } else {
+                                return [];
+                            }
+                        })
+                        .catch(() => {
+                            return [];
+                        });
+                },
+                cache: false,
+                keys: ["name"]
+            },
+            resultList: {
+                element: (list, data) => {
+                    if (!data.results.length) {
+                        const message = document.createElement("div");
+                        message.setAttribute("class", "no_result");
+                        message.innerHTML = `<span>Found No Results for "${data.query}"</span>`;
+                        list.prepend(message);
+                    }
+                },
+                noResults: true,
+                tabSelect: true,
+            },
+            resultsItem: {
+                element: (item, data) => {
+                    console.log(item, data)
+                    item.style = "display: flex; justify-content: space-between;";
+                    item.innerHTML = `
+      <span style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+      ${data.name}
+      </span>
+      <span style="display: flex; align-items: center; font-size: 13px; font-weight: 100;color: rgba(0,0,0,.2);">
+      ${data.flag}
+      </span>`;
+                },
+                highlight: true,
+            },
+            events: {
+                input: {
+                    focus: () => {
+                        if (autoCompleteJS.input.value.length) autoCompleteJS.start();
+                    }
+                }
+            }
+        })
+        autoCompleteJS.input.addEventListener("selection", (event) => {
+            const selected =event.detail.selection.value
+            autoCompleteJS.input.value = selected.name;
+            const url = selected.url
+            window.location.href = `${origin}/?l=${url ? url : selected.name}`
+        })
+    </script>
+    </body>
+    </html>
+
+{% endblock %}

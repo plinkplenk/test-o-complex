@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="mx-auto w-full px-[10%]">
+        <div class="bg-neutral-100 px-10 py-5 rounded-xl flex flex-col gap-y-20">
+            <div class="w-full flex justify-between h-max">
+                <h2 class="text-4xl max-w-[33%] overflow-auto">
+                    {% if location.flag %}
+                        {{ location.flag }}
+                    {% else %}
+                        {{ location.country }},
+                    {% endif %}
+                    {{ location.name.title }}
+                </h2>
+                <div class="text-center bg-neutral-200 p-3 rounded-3xl min-w-max">
+                    <div>{{ weather.last_updated|date:"M d, Y H:i" }}</div>
+                    <div class="flex items-center justify-between w-full">
+                        <h1 class="text-6xl">
+                            {{ weather.temp_c }}º
+                        </h1>
+                        <img src="{{ weather.condition.icon_url }}" alt="{{ weather.condition.text }}" style="scale: 0.9">
+                    </div>
+
+                    <h3>
+                        Feels Like: {{ weather.feelslike_c }}º
+                    </h3>
+                </div>
+                <div class="text-3xl text-right">
+                    <div>
+                        💨{{ weather.wind_kph }} KM/H
+                    </div>
+                    <div>
+                        💧{{ weather.humidity }}%
+                    </div>
+                </div>
+
+            </div>
+            <div class="gap-y-2 gap-x-5 flex flex-row min-w-full overflow-scroll">
+                {% for hour in forecast.hours %}
+                    <div class="min-w-[15%] bg-neutral-200 p-2 rounded-xl">
+                        <div class="text-center text-2xl">
+                            {{ hour.date|date:"d M"}} {{ hour.date|date:"H:00"}}
+                        </div>
+                        <div class="flex items-center text-2xl w-max mx-auto">
+                            <div>
+                                {{ hour.temp_c }}º
+                            </div>
+                            <img src="{{ hour.condition.icon_url }}" alt="{{ hour.condition.text }}" style="scale: 0.7">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
