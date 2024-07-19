@@ -27,4 +27,3 @@
     ```bash
     docker build . --tag weather && docker run --env-file .env -p 8000:8000 -d weather:latest
     ```
-4. 
