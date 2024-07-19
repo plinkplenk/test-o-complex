@@ -138,12 +138,4 @@ WEATHER_API_BASE_URL = "https://api.weatherapi.com/v1/"
 WEATHER_API_KEY = getenv("WEATHER_API_KEY")
 
 
-# COMPRESSOR
-COMPRESS_ROOT = BASE_DIR / "static"
-
-COMPRESS_ENABLED = True
-
-STATICFILES_FINDERS = ("compressor.finders.CompressorFinder",)
-
-
 FLAGS_DIR = BASE_DIR / "weather" / "data"
