@@ -22,7 +22,7 @@
     mv example.env .env
     ```
 
-2. Зарегистрироваться на https://www.weatherapi.com/ , получить API KEY выставить его в .env
+2. Зарегистрироваться на https://www.weatherapi.com/ , получить API KEY, затем добавить его в .env
 3. запустить приложение с помощью Docker
     ```bash
     docker build . --tag weather && docker run --env-file .env -p 8000:8000 -d weather:latest
