@@ -28,10 +28,12 @@ STATIC_URL = "/static/"
 if not DEBUG:
     ALLOWED_HOSTS = getenv("ALLOWED_HOSTS", "").split(",")
 else:
+    ALLOWED_HOSTS = ["*"]
     STATICFILES_DIRS = [
         BASE_DIR / "static",
-        "/var/www/static/",
     ]
+
+
 # Application definition
 
 INSTALLED_APPS = [
