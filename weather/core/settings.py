@@ -13,10 +13,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from os import getenv
 from pathlib import Path
 
-from dotenv import load_dotenv
-
 from django.conf import settings
-
+from dotenv import load_dotenv
 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

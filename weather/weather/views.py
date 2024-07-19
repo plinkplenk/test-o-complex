@@ -1,12 +1,12 @@
 from http import HTTPStatus
+
 from django.conf import settings
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
-from django.http import HttpRequest, HttpResponse, JsonResponse
 
-from .weather_api import WeatherAPI
 from .ip_location import get_location_by_ip
-
+from .weather_api import WeatherAPI
 
 LAST_LOCATION_COOKIE = "last_location"
 

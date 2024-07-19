@@ -3,7 +3,7 @@ from urllib.parse import urljoin
 
 import requests
 
-from .models import Location, Weather, Forecast
+from .models import Forecast, Location, Weather
 
 FORECAST_WEATHER_PATH = "forecast.json"
 
