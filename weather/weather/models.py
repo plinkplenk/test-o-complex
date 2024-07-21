@@ -27,6 +27,8 @@ class Location:
     localtime: str
     flag: str
     url: str
+    lat: str
+    lon: str
 
     @classmethod
     def from_dict(cls, data: dict[str, any]) -> "Location":
@@ -41,6 +43,8 @@ class Location:
             localtime=data.get("localtime"),
             url=data.get("url"),
             flag=flag,
+            lat=data.get("lat"),
+            lon=data.get("lon")
         )
 
     def to_dict(self):
@@ -50,6 +54,8 @@ class Location:
             "region": self.region,
             "url": self.url,
             "flag": self.flag,
+            "lat": self.lat,
+            "lon": self.lon,
         }
 
 

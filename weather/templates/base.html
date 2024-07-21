@@ -88,7 +88,7 @@
             const selected =event.detail.selection.value
             autoCompleteJS.input.value = selected.name;
             const url = selected.url
-            window.location.href = `${origin}/?l=${url ? url : selected.name}`
+            window.location.href = `${origin}/?l=${url ? url : selected.lat + "," + selected.lon}`
         })
     </script>
     </body>
